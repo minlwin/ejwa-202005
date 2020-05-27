@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import com.jdc.custom.model.dto.ItemDTO;
 import com.jdc.custom.model.entity.Item;
 import com.jdc.custom.model.entity.Item.State;
 import com.jdc.custom.model.service.ItemService;
@@ -40,4 +41,14 @@ class ItemServiceTest {
 		assertEquals(1, list6.size());
 	}
 
+	@Test
+	void test2_search_for_list() {
+		
+		List<ItemDTO> list1 = service.searchForList(null, "iPhone", "");
+		assertEquals(2, list1.size());
+		
+		List<ItemDTO> list2 = service.searchForList("Phones", null, "");
+		assertEquals(2, list2.size());
+
+	}
 }
