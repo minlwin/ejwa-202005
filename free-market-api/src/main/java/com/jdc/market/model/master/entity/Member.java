@@ -1,4 +1,4 @@
-package com.jdc.market.model.entity;
+package com.jdc.market.model.master.entity;
 
 import java.io.Serializable;
 

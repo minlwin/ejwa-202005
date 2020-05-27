@@ -1,4 +1,4 @@
-package com.jdc.market.model.entity;
+package com.jdc.market.model.sale.entity;
 
 import java.io.Serializable;
 
@@ -12,15 +12,18 @@ import lombok.Data;
 
 @Data
 @Entity
-public class Category implements Serializable{
+public class Image implements Serializable{
 
 	private static final long serialVersionUID = 1L;
-
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
-	private String name;
+	private long id;
+	private String url;
+	private String description;
+	
+	private boolean cover;
 	
 	@ManyToOne
-	private Category category;
+	private Item item;
 }
