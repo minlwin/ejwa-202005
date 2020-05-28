@@ -7,5 +7,5 @@ import com.jdc.custom.model.entity.Item;
 
 public interface ItemRepo extends BaseRepository<Item, Integer>{
 
-	<T> List<T> findByBrend(String brend);
+	<T> List<T> findByBrend(String brend, Class<T> type);
 }

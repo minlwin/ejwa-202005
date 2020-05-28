@@ -7,6 +7,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -24,12 +25,12 @@ public class Course implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
-	@Column(unique = true, nullable = false)
+	@Column(nullable = false)
 	private String name;
 
 	private String description;
 
-	@OneToMany(mappedBy = "course", 
+	@OneToMany(mappedBy = "course", fetch = FetchType.EAGER,
 			cascade = { CascadeType.PERSIST, CascadeType.MERGE }, 
 			orphanRemoval = true)
 	private List<Section> sections;

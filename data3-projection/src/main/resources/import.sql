@@ -1,6 +1,6 @@
 insert into course (name) values ('Java SE');
 insert into course (name) values ('Java EE');
-insert into course (name) values ('Spriing');
+insert into course (name) values ('Spring');
 
 insert into section (course_id, priority, name) values (1, 1, 'Overview');
 insert into section (course_id, priority, name) values (1, 2, 'Language Fundamentals');

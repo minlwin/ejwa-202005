@@ -21,14 +21,14 @@ public class ProjectionTest {
 	@Test
 	public void test1() {
 		
-		List<ItemWithNameAndPrice> list = repo.findByBrend("iPhone");
+		List<ItemWithNameAndPrice> list = repo.findByBrend("iPhone",  ItemWithNameAndPrice.class);
 		assertEquals(2, list.size());
 	}
 	
 	@Test
 	public void test2() {
 		
-		List<ItemSummary> list = repo.findByBrend("iPhone");
+		List<ItemSummary> list = repo.findByBrend("iPhone", ItemSummary.class);
 		assertEquals(2, list.size());
 	}	
 }
