@@ -19,7 +19,7 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name = "REP_REPORT")
+@Table(name = "ACT_REPORT")
 @Inheritance(strategy = InheritanceType.JOINED)
 public abstract class AbstractReport implements Serializable{
 

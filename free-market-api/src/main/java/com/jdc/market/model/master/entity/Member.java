@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -11,6 +12,7 @@ import lombok.Data;
 
 @Data
 @Entity
+@Table(name = "MST_MEMBER")
 public class Member implements Serializable{
 	
 	private static final long serialVersionUID = 1L;

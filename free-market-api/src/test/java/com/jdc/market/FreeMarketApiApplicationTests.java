@@ -1,4 +1,4 @@
-package com.jdc.queries;
+package com.jdc.market;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

@@ -12,7 +12,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name = "REP_REPORT_ITEM")
+@Table(name = "ACT_REPORT_ITEM")
 public class ItemReport extends AbstractReport{
 
 	private static final long serialVersionUID = 1L;

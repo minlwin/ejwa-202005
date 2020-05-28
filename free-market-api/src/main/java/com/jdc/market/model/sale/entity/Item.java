@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
+import javax.persistence.CollectionTable;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.MapKeyColumn;
+import javax.persistence.Table;
 
 import com.jdc.market.model.master.entity.Category;
 import com.jdc.market.model.master.entity.Member;
@@ -21,6 +23,7 @@ import lombok.Data;
 
 @Data
 @Entity
+@Table(name = "SLE_ITEM")
 public class Item implements Serializable{
 
 	private static final long serialVersionUID = 1L;
@@ -39,10 +42,12 @@ public class Item implements Serializable{
 	private String description;
 	
 	@ElementCollection
+	@CollectionTable(name = "SLE_ITEM_PROPERTIES")
 	@MapKeyColumn
 	private Map<String, String> properties;
 	
 	@ElementCollection
+	@CollectionTable(name = "SLE_ITEM_TAGS")
 	private List<String> tags;
 	
 	@ManyToMany
