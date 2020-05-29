@@ -22,10 +22,13 @@ public class Region implements Serializable{
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	private Integer id;
 	
 	@Column(unique = true, nullable = false)
 	private String name;
+	
+	private String region;
+	private String capital;
 
 	@OneToMany(mappedBy = "region", cascade = {CascadeType.PERSIST, CascadeType.MERGE}, orphanRemoval = true)
 	private List<Township> townships;
@@ -37,5 +40,11 @@ public class Region implements Serializable{
 	public void addTownship(Township t) {
 		t.setRegion(this);
 		townships.add(t);
+	}
+
+	public static Region withCapital(String c) {
+		Region r = new Region();
+		r.setCapital(c);
+		return r;
 	}
 }

@@ -1,35 +1,34 @@
-package com.jdc.example.model.entity;
+package com.jdc.postgres.entity;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 
 import lombok.Data;
 
 @Data
 @Entity
-public class Township implements Serializable {
+public class Region implements Serializable{
 
 	private static final long serialVersionUID = 1L;
-
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
+	
+	@Column(unique = true, nullable = false)
 	private String name;
 	
-	@ManyToOne
-	private Region region;
+	private String region;
+	private String capital;
 
-	public Township() {
+	public static Region withCapital(String c) {
+		Region r = new Region();
+		r.setCapital(c);
+		return r;
 	}
-
-	public Township(String name) {
-		this();
-		this.name = name;
-	}
-
 }
