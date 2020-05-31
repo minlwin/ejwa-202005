@@ -1,6 +1,5 @@
 package com.jdc.market.model.sale.entity;
 
-import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
@@ -11,18 +10,20 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.jdc.market.model.BaseEntity;
+
 import lombok.Data;
 
 @Data
 @Entity
 @Table(name = "SLE_SALE_STATUS")
-public class SaleStatus implements Serializable{
+public class SaleStatus implements BaseEntity<Long>{
 
 	private static final long serialVersionUID = 1L;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
+	private Long id;
 	@ManyToOne
 	private Sale sale;
 	private Status status;

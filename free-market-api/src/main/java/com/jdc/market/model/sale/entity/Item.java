@@ -1,6 +1,5 @@
 package com.jdc.market.model.sale.entity;
 
-import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
@@ -15,6 +14,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.MapKeyColumn;
 import javax.persistence.Table;
 
+import com.jdc.market.model.BaseEntity;
 import com.jdc.market.model.master.entity.Category;
 import com.jdc.market.model.master.entity.Member;
 import com.jdc.market.model.master.entity.Township;
@@ -24,13 +24,13 @@ import lombok.Data;
 @Data
 @Entity
 @Table(name = "SLE_ITEM")
-public class Item implements Serializable{
+public class Item implements BaseEntity<Long>{
 
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
+	private Long id;
 	private String name;
 	
 	@ManyToOne

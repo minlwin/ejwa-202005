@@ -1,5 +1,5 @@
 package com.jdc.market.api.master;
 
-public class RegionAPI {
+public class MemberApi {
 
 }

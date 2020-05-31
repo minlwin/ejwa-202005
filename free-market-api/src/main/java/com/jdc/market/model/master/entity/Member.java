@@ -1,24 +1,25 @@
 package com.jdc.market.model.master.entity;
 
-import java.io.Serializable;
-
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.jdc.market.model.BaseEntity;
 
 import lombok.Data;
 
 @Data
 @Entity
 @Table(name = "MST_MEMBER")
-public class Member implements Serializable{
+public class Member implements BaseEntity<String>{
 	
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	private String loginId;
+	@Column(name = "login_id")
+	private String id;
 	private String name;
 	
 	@JsonIgnore
@@ -30,7 +31,7 @@ public class Member implements Serializable{
 	private boolean valid;
 	
 	public enum Role {
-		Admin, Trusted, Member
+		Admin, Member
 	}
 
 }

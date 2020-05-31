@@ -1,6 +1,5 @@
 package com.jdc.market.model.actions.entity;
 
-import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -12,6 +11,7 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
 
+import com.jdc.market.model.BaseEntity;
 import com.jdc.market.model.master.entity.Member;
 
 import lombok.Data;
@@ -19,7 +19,7 @@ import lombok.Data;
 @Entity
 @Data
 @Table(name = "ACT_MESSAGES")
-public class Messages implements Serializable{
+public class Messages implements BaseEntity<UUID>{
 
 	private static final long serialVersionUID = 1L;
 	

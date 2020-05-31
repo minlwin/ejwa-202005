@@ -1,9 +1,8 @@
 package com.jdc.market.model.actions.reppo;
 
-import org.springframework.data.jpa.repository.JpaRepository;
-
+import com.jdc.market.model.BaseRepository;
 import com.jdc.market.model.actions.entity.ItemReview;
 
-public interface ItemReviewRepo extends JpaRepository<ItemReview, Long>{
+public interface ItemReviewRepo extends BaseRepository<ItemReview, Long>{
 
 }
