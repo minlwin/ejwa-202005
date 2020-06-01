@@ -1,5 +1,7 @@
 package com.jdc.market.model.master.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,5 +19,9 @@ public class TownshipService extends BaseService<Township, Integer>{
 	@Override
 	protected BaseRepository<Township, Integer> repo() {
 		return repo;
+	}
+
+	public List<Township> findByRegion(int regionId) {
+		return repo.findByRegionId(regionId);
 	}
 }

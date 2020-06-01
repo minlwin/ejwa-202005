@@ -1,6 +1,9 @@
 package com.jdc.market.api.master;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -19,6 +22,11 @@ public class TownshipApi extends BaseApi<Township, Integer>{
 	@Override
 	protected BaseService<Township, Integer> service() {
 		return service;
+	}
+	
+	@GetMapping("region/{id}")
+	public List<Township> findByRegion(int regionId) {
+		return service.findByRegion(regionId);
 	}
 	
 }
