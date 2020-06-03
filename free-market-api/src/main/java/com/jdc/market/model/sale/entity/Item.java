@@ -53,5 +53,11 @@ public class Item implements BaseEntity<Long>{
 	@ManyToMany
 	private List<Township> availableTownships;
 	
+	private State state;
+	
+	
+	public enum State {
+		New, Used
+	}
 	
 }
