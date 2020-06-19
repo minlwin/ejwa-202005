@@ -46,6 +46,8 @@ public class AddressService extends BaseService<Address, Integer>{
 			params.put("address", "%".concat(address).concat("%"));
 		}
   		
+		sb.append(" order by a.id, a.township.division.id, a.township.id");
+		
 		return repo.search(sb.toString(), params);
 	}
 
