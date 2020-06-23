@@ -2,7 +2,9 @@ package com.jdc.job.model.entity;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.persistence.CascadeType;
 import javax.persistence.ElementCollection;
@@ -11,6 +13,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.MapKeyColumn;
 import javax.persistence.OneToOne;
 
 import lombok.Data;
@@ -26,10 +29,16 @@ public class Company implements Serializable{
 	private int id;
 
 	private String name;
-
+	
+	private String category;
+ 
 	private String coverPhoto;
 
 	private String greeting;
+	
+	@ElementCollection
+	@MapKeyColumn(name = "property")
+	private Map<String, String> properties = new HashMap<>();
 
 	@ElementCollection
 	private List<String> images = new ArrayList<>();
