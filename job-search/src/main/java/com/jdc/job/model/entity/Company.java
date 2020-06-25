@@ -16,6 +16,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.MapKeyColumn;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.Data;
 
 @Entity
@@ -36,14 +38,15 @@ public class Company implements Serializable{
 
 	private String greeting;
 	
+	private String homePage;
+
 	@ElementCollection
 	@MapKeyColumn(name = "property")
 	private Map<String, String> properties = new HashMap<>();
-
+	@JsonIgnore
 	@ElementCollection
 	private List<String> images = new ArrayList<>();
 
-	private String homePage;
 
 	@ManyToOne(optional = false, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
 	private Employer owner;

@@ -8,6 +8,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.Data;
 
 @Entity
@@ -28,6 +30,7 @@ public class Profile implements Serializable{
 
 	private String photo;
 
+	@JsonIgnore
 	@OneToOne(optional = false)
 	private Member member;
 

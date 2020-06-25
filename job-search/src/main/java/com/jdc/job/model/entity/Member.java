@@ -8,6 +8,8 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.Data;
 
 @Entity
@@ -20,6 +22,7 @@ public class Member implements Serializable{
 	@Id
 	private String login;
 
+	@JsonIgnore
 	private String password;
 
 	private Role role;
