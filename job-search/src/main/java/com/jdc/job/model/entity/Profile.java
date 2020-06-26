@@ -26,9 +26,9 @@ public class Profile implements Serializable{
 
 	private String phone;
 
-	private String email;
-
 	private String photo;
+	
+	private String greeting;
 
 	@JsonIgnore
 	@OneToOne(optional = false)

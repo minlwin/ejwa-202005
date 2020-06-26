@@ -2,9 +2,7 @@ package com.jdc.job.model.entity;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.persistence.CascadeType;
 import javax.persistence.ElementCollection;
@@ -13,7 +11,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.MapKeyColumn;
 import javax.persistence.OneToOne;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -39,19 +36,21 @@ public class Company implements Serializable{
 	private String greeting;
 	
 	private String homePage;
+	
+	private String phone;
+	private String email;
 
 	@ElementCollection
-	@MapKeyColumn(name = "property")
-	private Map<String, String> properties = new HashMap<>();
+	private List<Property> properties = new ArrayList<>();
 	@JsonIgnore
 	@ElementCollection
 	private List<String> images = new ArrayList<>();
 
 
-	@ManyToOne(optional = false, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+	@ManyToOne(optional = false)
 	private Employer owner;
 
-	@OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+	@OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, orphanRemoval = true)
 	private Address address;
 
 }
