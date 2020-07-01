@@ -1,4 +1,4 @@
-package com.jdc.job.api;
+package com.jdc.job.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
