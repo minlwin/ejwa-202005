@@ -1,47 +1,58 @@
 package com.jdc.job.api;
 
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.jdc.job.model.dto.LoginDto;
 import com.jdc.job.model.dto.LoginResult;
-import com.jdc.job.model.entity.Member;
-import com.jdc.job.model.repo.MemberRepo;
-
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
+import com.jdc.job.model.dto.SignUpDto;
+import com.jdc.job.model.service.MemberService;
 
 @RestController
-@RequestMapping("login")
+@RequestMapping("auth")
 public class LoginController {
 	
 	@Autowired
 	private AuthenticationManager authManager;
 	
 	@Autowired
-	private MemberRepo memberRepo;
+	private MemberService service;
 
-	@PostMapping
+	@PostMapping("login")
 	public LoginResult login(@RequestBody LoginDto dto) {
+		return login(dto.getEmail(), dto.getPassword());
+	}
+	
+	@PostMapping("signup")
+	public LoginResult signUp(SignUpDto dto) {
+		
+		// create member according to role
+		service.signUp(dto);
+		
+		// internal login
+		return login(dto.getEmail(), dto.getPassword());
+	}
+	
+	private LoginResult login(String email, String password) {
+		
 		LoginResult result = new LoginResult();
-		Authentication auth = authManager.authenticate(new UsernamePasswordAuthenticationToken(dto.getEmail(), dto.getPassword()));
+		
+		Authentication auth = authManager.authenticate(new UsernamePasswordAuthenticationToken(email, password));
+		
 		if(auth.isAuthenticated()) {
-			result.setSuccess(true);
-			Optional<Member> optional = memberRepo.findById(auth.getName());
-			optional.ifPresent(data -> {
-				result.setName(data.getProfile().getName());
-				result.setRole(data.getRole());
-			});
+			SecurityContextHolder.getContext().setAuthentication(auth);
+			service.setLoginIfo(result, auth.getName());
 		} else {
 			result.setMessage("Invalid Login Information.");
 		}
 		
-		return result;
+		return result;		
 	}
 }

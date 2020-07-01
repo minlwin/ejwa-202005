@@ -3,6 +3,7 @@ package com.jdc.job.model.entity;
 import java.io.Serializable;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
@@ -24,12 +25,12 @@ public class Member implements Serializable{
 
 	private Role role;
 
-	@OneToOne(mappedBy = "member", optional = true)
+	@OneToOne(mappedBy = "member", optional = true, fetch = FetchType.LAZY)
 	private Profile profile;
 
 	public enum Role {
 		Admin,
-		Employee,
+		Candidate,
 		Employer
 	}
 
