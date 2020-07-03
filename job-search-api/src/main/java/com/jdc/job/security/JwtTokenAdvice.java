@@ -8,7 +8,7 @@ import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.server.ServerHttpRequest;
 import org.springframework.http.server.ServerHttpResponse;
 import org.springframework.http.server.ServletServerHttpResponse;
-import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
@@ -31,11 +31,11 @@ public class JwtTokenAdvice implements ResponseBodyAdvice<Object>{
 			Class<? extends HttpMessageConverter<?>> selectedConverterType, ServerHttpRequest request,
 			ServerHttpResponse response) {
 		
-		SecurityContext security = SecurityContextHolder.getContext();
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		
-		if(security.getAuthentication().isAuthenticated()) {
+		if(authentication.isAuthenticated()) {
 			// generate token
-			String jwtToken = provider.generate(security.getAuthentication().getName(), security.getAuthentication().getAuthorities());
+			String jwtToken = provider.generate(authentication.getName(), authentication.getAuthorities());
 			
 			// add token to header
 			ServletServerHttpResponse resp = (ServletServerHttpResponse) response;
