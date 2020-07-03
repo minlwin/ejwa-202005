@@ -1,6 +1,10 @@
 package com.jdc.job.model.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +21,8 @@ public class AccountService {
 	private AccountRepo repo;
 	@Autowired
 	private PasswordEncoder encoder;
+	@Autowired
+	private AuthenticationManager auth;
 
 	public LoginResultDto login(LoginDto login) {
 		return login(login.getEmail(), login.getPassword());
@@ -39,7 +45,19 @@ public class AccountService {
 	
 	private LoginResultDto login(String email, String password) {
 		LoginResultDto dto = new LoginResultDto();
-		// TODO Authentication
+		
+		UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(email, password);
+		Authentication authentication = auth.authenticate(token);
+		
+		if(authentication.isAuthenticated()) {
+			Account account = findById(email);
+			dto.setName(account.getName());
+			dto.setRole(account.getRole());
+			dto.setSuccess(true);
+			SecurityContextHolder.getContext().setAuthentication(authentication);
+		} else {
+			dto.setMessage("Authentication Fails!");
+		}
 		
 		return dto;
 	}

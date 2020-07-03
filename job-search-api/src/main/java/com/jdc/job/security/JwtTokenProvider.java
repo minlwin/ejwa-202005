@@ -28,7 +28,7 @@ public class JwtTokenProvider {
 	
 	private SecretKey key = Keys.secretKeyFor(SignatureAlgorithm.HS512);
 	
-	public String generate(String username, Collection<GrantedAuthority> roles) {
+	public String generate(String username, Collection<? extends GrantedAuthority> collection) {
 		
 		Calendar cal = Calendar.getInstance();
 		cal.add(Calendar.MINUTE, limit);
@@ -38,7 +38,7 @@ public class JwtTokenProvider {
 				.setExpiration(cal.getTime())
 				.setIssuer(issuer)
 				.setSubject(username)
-				.claim("rol", roles)
+				.claim("rol", collection)
 				.signWith(key)
 				.compact();
 	}

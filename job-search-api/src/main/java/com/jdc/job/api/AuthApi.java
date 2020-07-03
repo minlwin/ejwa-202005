@@ -2,6 +2,7 @@ package com.jdc.job.api;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -18,12 +19,12 @@ public class AuthApi {
 	private AccountService service;
 	
 	@PostMapping("login")
-	public LoginResultDto login(LoginDto login) {
+	public LoginResultDto login(@RequestBody LoginDto login) {
 		return service.login(login);
 	}
 	
 	@PostMapping("signup")
-	public LoginResultDto signUp(SignUpDto dto) {
+	public LoginResultDto signUp(@RequestBody SignUpDto dto) {
 		return service.signUp(dto);
 	}
 	
