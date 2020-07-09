@@ -33,7 +33,7 @@ public class JwtTokenAdvice implements ResponseBodyAdvice<Object>{
 		
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		
-		if(authentication.isAuthenticated()) {
+		if(null != authentication && authentication.isAuthenticated()) {
 			// generate token
 			String jwtToken = provider.generate(authentication.getName(), authentication.getAuthorities());
 			

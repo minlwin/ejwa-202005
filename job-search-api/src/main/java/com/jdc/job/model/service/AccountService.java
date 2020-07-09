@@ -1,7 +1,11 @@
 package com.jdc.job.model.service;
 
+import javax.persistence.EntityNotFoundException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.InternalAuthenticationServiceException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -29,6 +33,15 @@ public class AccountService {
 	}
 
 	public LoginResultDto signUp(SignUpDto dto) {
+		
+		if(repo.findById(dto.getEmail()).orElse(null) != null) {
+			LoginResultDto result = new LoginResultDto();
+			result.setSuccess(false);
+			result.setMessage(String.format("%s has been registered in this system.", dto.getEmail()));
+			SecurityContextHolder.getContext().setAuthentication(null);
+			return result;
+		}
+		
 		Account account = new Account();
 		account.setEmail(dto.getEmail());
 		account.setName(dto.getName());
@@ -45,25 +58,32 @@ public class AccountService {
 	
 	private LoginResultDto login(String email, String password) {
 		LoginResultDto dto = new LoginResultDto();
+		SecurityContextHolder.getContext().setAuthentication(null);
 		
-		UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(email, password);
-		Authentication authentication = auth.authenticate(token);
-		
-		if(authentication.isAuthenticated()) {
-			Account account = findById(email);
-			dto.setName(account.getName());
-			dto.setRole(account.getRole());
-			dto.setSuccess(true);
-			SecurityContextHolder.getContext().setAuthentication(authentication);
-		} else {
-			dto.setMessage("Authentication Fails!");
-		}
+		try {
+			UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(email, password);
+			Authentication authentication = auth.authenticate(token);
+			
+			if(authentication.isAuthenticated()) {
+				Account account = findById(email);
+				dto.setName(account.getName());
+				dto.setRole(account.getRole());
+				dto.setSuccess(true);
+				SecurityContextHolder.getContext().setAuthentication(authentication);
+			} else {
+				dto.setMessage("Authentication Fails!");
+			}
+		} catch(EntityNotFoundException | InternalAuthenticationServiceException e) {
+			dto.setMessage("Please check your email.");
+		} catch(BadCredentialsException e) {
+			dto.setMessage("Please check your password.");
+		} 
 		
 		return dto;
 	}
 
 	public Account findById(String username) {
-		return repo.findById(username).orElseThrow();
+		return repo.findById(username).orElseThrow(() -> new EntityNotFoundException());
 	}
 
 }
