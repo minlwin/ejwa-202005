@@ -86,4 +86,11 @@ public class AccountService {
 		return repo.findById(username).orElseThrow(() -> new EntityNotFoundException());
 	}
 
+	public Account getLoginUser() {
+		
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String userName = auth.getName();
+		return findById(userName);
+	}
+
 }

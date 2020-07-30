@@ -45,4 +45,15 @@ public class BaseRepositoryImpl<T, ID> extends SimpleJpaRepository<T, ID> implem
 		return query;
 	}
 
+	@Override
+	public <D> List<D> searchNamedQuery(String name, Map<String, Object> params, Class<D> type) {
+		TypedQuery<D> query = em.createNamedQuery(name, type);
+		if(null != params) {
+			for(String key : params.keySet()) {
+				query.setParameter(key, params.get(key));
+			}
+		}
+		return query.getResultList();
+	}
+
 }

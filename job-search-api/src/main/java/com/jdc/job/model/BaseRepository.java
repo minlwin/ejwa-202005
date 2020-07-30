@@ -15,4 +15,5 @@ public interface BaseRepository<T, ID> extends JpaRepository<T, ID>{
 	
 	<D>List<D> search(String jpql, Map<String, Object> params, Class<D> type);
 	
+	<D>List<D> searchNamedQuery(String jpql, Map<String, Object> params, Class<D> type);
 }
