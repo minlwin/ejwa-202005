@@ -1,6 +1,8 @@
 package com.jdc.job.api;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -38,5 +40,11 @@ public class CompanyApi {
 	@PostMapping("{id}/photo")
 	public Company uploadPhoto() {
 		return null;
+	}
+	
+	@GetMapping("owner")
+	public Company findOwnComany() {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		return service.findByOwner(auth.getName());
 	}
 }

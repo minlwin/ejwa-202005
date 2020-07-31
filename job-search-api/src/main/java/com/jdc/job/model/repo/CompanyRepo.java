@@ -5,4 +5,5 @@ import com.jdc.job.model.entity.Company;
 
 public interface CompanyRepo extends BaseRepository<Company, Integer>{
 
+	Company findOneByOwnerEmail(String owner);
 }

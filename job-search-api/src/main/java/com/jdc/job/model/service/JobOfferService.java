@@ -1,5 +1,6 @@
 package com.jdc.job.model.service;
 
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -17,6 +18,7 @@ import com.jdc.job.model.entity.Account;
 import com.jdc.job.model.entity.Company;
 import com.jdc.job.model.entity.JobOffer;
 import com.jdc.job.model.entity.JobOffer.Status;
+import com.jdc.job.model.entity.JobOfferSummary;
 import com.jdc.job.model.repo.JobOfferRepo;
 
 @Service
@@ -64,7 +66,7 @@ public class JobOfferService {
 			params.put("status", Arrays.asList(Status.Published, Status.Finish));
 		}
 
-		return repo.searchNamedQuery("JobOffer.findForCompany", null, JobOfferListDto.class);
+		return repo.searchNamedQuery("JobOffer.findForCompany", params, JobOfferListDto.class);
 	}
 
 	public JobOffer findById(long id) {
@@ -72,13 +74,39 @@ public class JobOfferService {
 	}
 
 	public JobOffer create(JobOfferDto dto) {
-		// TODO Auto-generated method stub
-		return null;
+		JobOffer job = new JobOffer();
+		setData(job, dto);
+		return repo.save(job);
 	}
 
 	public JobOffer update(long id, JobOfferDto dto) {
-		// TODO Auto-generated method stub
-		return null;
+		JobOffer job = repo.getOne(id);
+		setData(job, dto);
+		return repo.save(job);
+	}
+
+	private void setData(JobOffer job, JobOfferDto dto) {
+
+		job.setCompany(companies.findById(dto.getCompany()));
+		job.setDescriptions(dto.getDescriptions());
+		job.setJobType(dto.getJobType());
+		job.setLocation(dto.getLocation());
+
+		if(job.getId() == 0) {
+			job.setPostDate(LocalDate.now());
+		}
+		
+		job.setStatus(dto.getStatus());
+		
+		JobOfferSummary summary = new JobOfferSummary();
+		job.setSummary(summary);
+		summary.setExpreiance(dto.getExpreiance());
+		summary.setPosts(dto.getPosts());
+		summary.setQualification(dto.getQualification());
+		summary.setSalary(dto.getSalary());
+		
+		job.setTitle(dto.getTitle());
+		
 	}
 
 

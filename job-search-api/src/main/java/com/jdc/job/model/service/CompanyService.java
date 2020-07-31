@@ -50,6 +50,10 @@ public class CompanyService {
 		company.setOwner(accounts.getLoginUser());
 		
 	}
+
+	public Company findByOwner(String owner) {
+		return repo.findOneByOwnerEmail(owner);
+	}
 	
 	
 }
