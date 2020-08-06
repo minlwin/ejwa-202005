@@ -68,6 +68,9 @@ public class AccountService {
 				Account account = findById(email);
 				dto.setName(account.getName());
 				dto.setRole(account.getRole());
+				
+				dto.setHasOwnCompany(account.getCompany() != null);
+				
 				dto.setSuccess(true);
 				SecurityContextHolder.getContext().setAuthentication(authentication);
 			} else {

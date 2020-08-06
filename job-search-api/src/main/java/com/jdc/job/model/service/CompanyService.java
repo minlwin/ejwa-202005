@@ -44,6 +44,7 @@ public class CompanyService {
 		company.setFounded(dto.getFounded());
 		company.setHomePage(dto.getHomePage());
 		company.setLocation(dto.getLocation());
+		company.setSize(dto.getSize());
 		company.setLogo(dto.getLogo());
 		company.setName(dto.getName());
 		company.setVisions(dto.getVisions());

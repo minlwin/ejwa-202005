@@ -5,6 +5,7 @@ import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -21,6 +22,10 @@ public class Account implements Serializable{
 	
 	@Column(nullable = false)
 	private String name;
+	
+	@JsonIgnore
+	@OneToOne(mappedBy = "owner")
+	private Company company;
 	
 	@JsonIgnore
 	@Column(nullable = false)

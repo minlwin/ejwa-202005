@@ -9,6 +9,7 @@ public class CompanyDto {
 	private String category;
 	private String founded;
 	private String location;
+	private String size;
 	private String homePage;
 	private String logo;
 	private String aboutUs;

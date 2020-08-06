@@ -27,6 +27,7 @@ public class Company implements Serializable{
 	private String category;
 	private String founded;
 	private String location;
+	private String size;
 	private String homePage;
 	private String logo;
 	@Column(columnDefinition = "TEXT")
