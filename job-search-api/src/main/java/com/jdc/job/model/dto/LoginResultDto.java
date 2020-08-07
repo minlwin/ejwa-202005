@@ -9,7 +9,7 @@ public class LoginResultDto {
 
 	private String name;
 	private Role role;
-	private boolean hasOwnCompany;
+	private int company;
 	private boolean success;
 	private String message;
 }

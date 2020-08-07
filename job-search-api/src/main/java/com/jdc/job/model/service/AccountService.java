@@ -69,7 +69,7 @@ public class AccountService {
 				dto.setName(account.getName());
 				dto.setRole(account.getRole());
 				
-				dto.setHasOwnCompany(account.getCompany() != null);
+				dto.setCompany(account.getCompany() == null ? 0 : account.getCompany().getId());
 				
 				dto.setSuccess(true);
 				SecurityContextHolder.getContext().setAuthentication(authentication);
