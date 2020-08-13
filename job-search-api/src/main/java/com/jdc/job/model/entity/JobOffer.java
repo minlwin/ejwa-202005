@@ -25,7 +25,7 @@ import lombok.Data;
 @Entity
 @Table(name = "JOB_OFFER")
 @NamedQuery(name = "JobOffer.findForCompany", 
-	query = "select new com.jdc.job.model.dto.JobOfferListDto(j, 0) from JobOffer j where j.company.id = :company and j.status in :status")
+	query = "select new com.jdc.job.model.dto.JobOfferListDto(j, 0) from JobOffer j where j.company.id = :company and j.status = :status")
 public class JobOffer implements Serializable{
 
 	private static final long serialVersionUID = 1L;

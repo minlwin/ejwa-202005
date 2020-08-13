@@ -1,7 +1,6 @@
 package com.jdc.job.model.service;
 
 import java.time.LocalDate;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,8 +13,6 @@ import org.springframework.util.StringUtils;
 
 import com.jdc.job.model.dto.JobOfferDto;
 import com.jdc.job.model.dto.JobOfferListDto;
-import com.jdc.job.model.entity.Account;
-import com.jdc.job.model.entity.Company;
 import com.jdc.job.model.entity.JobOffer;
 import com.jdc.job.model.entity.JobOffer.Status;
 import com.jdc.job.model.entity.JobOfferSummary;
@@ -27,8 +24,6 @@ public class JobOfferService {
 	@Autowired
 	private JobOfferRepo repo;
 	
-	@Autowired
-	private AccountService accounts;
 	@Autowired
 	private CompanyService companies;
 
@@ -52,20 +47,12 @@ public class JobOfferService {
 		return repo.search(sb.toString(), params, JobOfferListDto.class);
 	}
 
-	public List<JobOfferListDto> searchForCompany(int company) {
+	public List<JobOfferListDto> searchForCompany(int company, Status status) {
 		
 		Map<String, Object> params = new HashMap<>();
 		params.put("company", company);
+		params.put("status", status);
 		
-		Account loginUser = accounts.getLoginUser();
-		Company comp = companies.findById(company);
-		
-		if(comp.getOwner().getEmail().equals(loginUser.getEmail())) {
-			params.put("status", Arrays.asList(Status.values()));
-		} else {
-			params.put("status", Arrays.asList(Status.Published, Status.Finish));
-		}
-
 		return repo.searchNamedQuery("JobOffer.findForCompany", params, JobOfferListDto.class);
 	}
 

@@ -22,11 +22,6 @@ public class CompanyApi {
 	@Autowired
 	private CompanyService service;
 
-	@GetMapping("{id}")
-	public Company findById(@PathVariable int id) {
-		return service.findById(id);
-	}
-	
 	@PostMapping
 	public Company create(@RequestBody CompanyDto dto) {
 		return service.create(dto);

@@ -16,6 +16,8 @@ public class JobOfferListDto {
 
 	private long id;
 	private String title;
+	private String jobType;
+	private String salary;
 	private int companyId;
 	private String companyName;
 	private String companyLogo;
@@ -35,6 +37,8 @@ public class JobOfferListDto {
 		this.companyLogo = job.getCompany().getLogo();
 		this.postDate = job.getPostDate();
 		this.location = job.getLocation();
+		this.jobType = job.getJobType();
+		this.salary = job.getSummary().getSalary();
 		this.applications = applications;
 	}
 	

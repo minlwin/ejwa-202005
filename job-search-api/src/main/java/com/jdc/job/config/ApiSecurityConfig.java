@@ -38,7 +38,7 @@ public class ApiSecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		http.cors().and()
 			.csrf().disable()
-			.authorizeRequests().antMatchers("/images/**", "/auth/**").permitAll()
+			.authorizeRequests().antMatchers("/images/**", "/public/**", "/auth/**").permitAll()
 			.anyRequest().authenticated().and()
 			.addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter.class);
 	}
